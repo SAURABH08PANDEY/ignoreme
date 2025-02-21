@@ -13,7 +13,7 @@ app.get("/freshdesk/sso", (req, res) => {
   };
 
   const token = generateFreshdeskJWT(user);
-  const redirectUrl = `https://herovired.myfreshworks.com/login/sso?jwt=${token}`;
+  const redirectUrl = `https://herovired.freshdesk.com/support/tickets/49241?jwt=${token}`;
   // res.status(200).json({ redirectionUrl: redirectUrl });
     res.redirect(redirectUrl);
 });
