@@ -12,8 +12,11 @@ app.get("/freshdesk/sso", (req, res) => {
     email: req.query.email,
   };
 
+  console.log(user, '111111111111111111111');
+  
   const token = generateFreshdeskJWT(user);
   const redirectUrl = `https://herovired.freshdesk.com/support/tickets/49241?jwt=${token}`;
+  console.log(redirectUrl, '222222222222222222222');
   // res.status(200).json({ redirectionUrl: redirectUrl });
     res.redirect(redirectUrl);
 });
