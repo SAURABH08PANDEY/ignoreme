@@ -14,8 +14,8 @@ app.get("/freshdesk/sso", (req, res) => {
 
   const token = generateFreshdeskJWT(user);
   const redirectUrl = `https://herovired.myfreshworks.com/login/sso?jwt=${token}`;
-    res.status(200).json({ redirectionUrl: redirectUrl });
-//   res.redirect(redirectUrl);
+  res.status(200).json({ redirectionUrl: redirectUrl });
+  //   res.redirect(redirectUrl);
 });
 
 app.get("/", (req, res) => {
@@ -29,3 +29,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Sever is running at ${port}`);
 });
+
+module.exports = app;
