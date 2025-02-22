@@ -8,7 +8,7 @@ const { generateFreshdeskJWT } = require("./generateFreshdeskJWT");
 
 app.get("/freshdesk/sso", (req, res) => {
   const user = {
-    name: req.query.name || "saurabh pandey",
+    name: req.query.name || "Saurabh Pandey",
     email: req.query.email || "saurabh.pandey@herovired.com",
   };
 
