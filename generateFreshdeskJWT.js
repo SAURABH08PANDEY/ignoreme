@@ -1,7 +1,8 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const PRIVATE_KEY = `MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDdgteLVKCgkShz
+const PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDdgteLVKCgkShz
 4ER8XBuSIUqmsGHFJoZ4BfT7jLrDUtKCurDxmST3aRV7jcsSijO3ZiDlZPGZtRBv
 XrMprRRxBixguHbz0e5oF9eJR++YV55kuC5Eb1yj8OgakORF7IjroDUWM6zRnc8M
 WhZR5moJM9z+atWEqdmXUzTnB8KB2sT8d+KW6RKro/VA5o9QVxgmRppGE0+Zfomc
@@ -26,25 +27,20 @@ zImXQPJtIeg4z4FNUhgzVHvwCL4rACVvfyQCNRG7aEqBItwFhr90g0IjAoGAcF44
 nSkMvRw6jS+8Iqy/qXaSxcgWLG2eisO0+4qHHrUCgYALBAoymxp9TTxLFLED9iD2
 5oxMz8Th77e5kkifFtWfrILh2RqKwLzJWw9YxSLUYPo8aWV3gDSh9mtDGwPPlQ6W
 2Yl6xBrziQy7WxcvbjBKdLQlieIaEleWZ9xOxwOTrKGgVJua9JSkHlLtUbs9jhwK
-IC+FSONc6Y5Nsl2fxXe/Tw==`;
-
+IC+FSONc6Y5Nsl2fxXe/Tw==
+-----END PRIVATE KEY-----`
 function generateFreshdeskJWT(user) {
   const payload = {
     name: user.name,
     email: user.email,
     iat: Math.floor(Date.now() / 1000),
-  };
+  };  
 
   const token = jwt.sign(payload, PRIVATE_KEY, {
     algorithm: "RS256",
     expiresIn: "10m",
   });
-  console.log(
-    PRIVATE_KEY,
-    payload,
-    token,
-    "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
-  );
+  console.log(PRIVATE_KEY, payload, token, 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu');
 
   return token;
 }
