@@ -1,20 +1,43 @@
 const express = require("express");
 require("dotenv").config();
+const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
+
 const port = process.env.PORT || 6060;
-// const cors = require("cors");
-// const jwt = require("jsonwebtoken");
-// const fs = require("fs");
-// const privateKey = fs.readFileSync("private.pem", "utf8");
-// const { generateFreshdeskJWT } = require("./generateFreshdeskJWT");
 const connectDB = require("./connectDB");
 const Data = require("./Data");
 
-app.get("/generate-jwt", (req, res) => {
+// Global variable to check if DB is connected
+let isDBConnected = false;
+
+// Function to establish DB connection and update flag
+const initializeDB = async () => {
+  try {
+    await connectDB();
+    isDBConnected = true;
+    console.log("✅ MongoDB Connected Successfully");
+  } catch (error) {
+    console.error("❌ MongoDB Connection Failed:", error.message);
+  }
+};
+
+// Ensure DB is connected before processing requests
+const ensureDBConnection = async (req, res, next) => {
+  if (!isDBConnected) {
+    console.log("⏳ Waiting for MongoDB to connect...");
+    await initializeDB();
+  }
+  next();
+};
+
+// Apply middleware to ensure DB connection before saving data
+app.use(ensureDBConnection);
+
+app.get("/generate-jwt", async (req, res) => {
   try {
     const data = req.query;
-    Data.create({ data: JSON.stringify(data) });
+    await Data.create({ data: JSON.stringify(data) }); // Ensure it waits
     res.status(200).json({ token: "hello" });
   } catch (error) {
     console.error("JWT Generation Error:", error.message);
@@ -30,13 +53,11 @@ app.get("/", (req, res) => {
   }
 });
 
-app.listen(port, async () => {
-  try {
-    await connectDB();
-  console.log(`Sever is running at ${port}`);
-  } catch (error) {
-    console.log(`Sever is not running at ${error.message}`)
-  }
+// Start the server only after DB connection is initialized
+initializeDB().then(() => {
+  app.listen(port, () => {
+    console.log(`🚀 Server is running at ${port}`);
+  });
 });
 
-module.exports = app;
+// module.exports = app;
