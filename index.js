@@ -64,7 +64,8 @@ app.get("/generate-jwt", async (req, res) => {
         privateKey,
       }),
     });
-    res.status(200).json({ url });
+    // res.status(200).json({ url });
+    res.redirect(url);
   } catch (error) {
     console.error("JWT Generation Error:", error.message);
     res.status(500).json({ error: error.message });
