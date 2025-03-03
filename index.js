@@ -43,10 +43,10 @@ app.get("/generate-jwt", async (req, res) => {
   try {
     const data = req.query;
     const user = {
-      id: "9443",
-      email: "saurabh.pandey@herovired.com",
-      firstName: "Saurabh",
-      lastName: "Pandey",
+      id: "7693",
+      email: "abhinav.jonny@gmail.com",
+      firstName: "Abhinav",
+      lastName: "Chauhan",
     };
     const payload = {
       sub: user.id,
