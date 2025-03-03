@@ -74,7 +74,7 @@ app.get("/generate-jwt", async (req, res) => {
 
 app.get("/", (req, res) => {
   try {
-    return res.status(200).json({ message: "HELLO BITCHES" });
+    return res.status(200).json({ message: "HELLO WORLD" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
