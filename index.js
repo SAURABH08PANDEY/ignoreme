@@ -43,7 +43,7 @@ app.get("/generate-jwt", async (req, res) => {
     const user = {
       id: "7693",
       email: "abhinav.jonny@gmail.com",
-      firstName: "Abhinav",
+      firstName: "Abhinav Chauhan",
       lastName: "Chauhan",
     };
     const payload = {
@@ -52,7 +52,7 @@ app.get("/generate-jwt", async (req, res) => {
       iat: Math.floor(Date.now() / 1000),
       nonce: data?.nonce,
       given_name: user.firstName,
-      family_name: user.lastName,
+      // family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
     const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
