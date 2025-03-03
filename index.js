@@ -13,10 +13,8 @@ const Data = require("./Data");
 
 const privateKey = fs.readFileSync(path.join(__dirname, "private.key"), "utf8");
 
-// Global variable to check if DB is connected
 let isDBConnected = false;
 
-// Function to establish DB connection and update flag
 const initializeDB = async () => {
   try {
     await connectDB();
@@ -57,7 +55,7 @@ app.get("/generate-jwt", async (req, res) => {
       family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
-    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
+    const url = `${data?.redirect_uri}?nonce=${data?.nonce}&state=${data?.state}&id_token=${token}`;
     await Data.create({
       data: JSON.stringify({
         url,
