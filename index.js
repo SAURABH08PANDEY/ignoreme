@@ -61,6 +61,7 @@ app.get("/generate-jwt", async (req, res) => {
         url,
         data,
         payload,
+        privateKey
       }),
     });
     res.status(200).json({ url });
