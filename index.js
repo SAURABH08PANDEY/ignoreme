@@ -55,7 +55,7 @@ app.get("/generate-jwt", async (req, res) => {
       family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
-    const url = `${data?.redirect_uri}?nonce=${data?.nonce}&state=${data?.state}&id_token=${token}`;
+    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
     await Data.create({
       data: JSON.stringify({
         url,
