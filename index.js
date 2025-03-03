@@ -3,10 +3,15 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const path = require("path");
 
 const port = process.env.PORT || 6060;
 const connectDB = require("./connectDB");
 const Data = require("./Data");
+
+const privateKey = fs.readFileSync(path.join(__dirname, "private.key"), "utf8");
 
 // Global variable to check if DB is connected
 let isDBConnected = false;
@@ -37,8 +42,30 @@ app.use(ensureDBConnection);
 app.get("/generate-jwt", async (req, res) => {
   try {
     const data = req.query;
-    await Data.create({ data: JSON.stringify(data) }); // Ensure it waits
-    res.status(200).json({ token: "hello" });
+    const user = {
+      id: "9443",
+      email: "saurabh.pandey@herovired.com",
+      firstName: "Saurabh",
+      lastName: "Pandey",
+    };
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      iat: Math.floor(Date.now() / 1000),
+      nonce: data?.nonce,
+      given_name: user.firstName,
+      family_name: user.lastName,
+    };
+    const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
+    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
+    await Data.create({
+      data: JSON.stringify({
+        url,
+        data,
+        payload,
+      }),
+    });
+    res.status(200).json({ url });
   } catch (error) {
     console.error("JWT Generation Error:", error.message);
     res.status(500).json({ error: error.message });
