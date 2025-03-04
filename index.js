@@ -40,18 +40,19 @@ app.use(ensureDBConnection);
 app.get("/generate-jwt", async (req, res) => {
   try {
     const data = req.query;
-    const user = {
-      id: "7712",
-      email: "kashishagarwal81@gmail.com",
-      firstName: "Kashish Agarwal",
-      lastName: "Agarwal",
-    };
+    const user = {}
+    // {
+    //   id: "7712",
+    //   email: "kashishagarwal81@gmail.com",
+    //   firstName: "Kashish Agarwal",
+    //   lastName: "Agarwal",
+    // };
     const payload = {
-      sub: user.id,
-      email: user.email,
+      sub: user?.id,
+      email: user?.email,
       iat: Math.floor(Date.now() / 1000),
       nonce: data?.nonce,
-      given_name: user.firstName,
+      given_name: user?.firstName,
       // family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
