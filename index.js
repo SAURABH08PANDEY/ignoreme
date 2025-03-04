@@ -40,13 +40,12 @@ app.use(ensureDBConnection);
 app.get("/generate-jwt", async (req, res) => {
   try {
     const data = req.query;
-    const user = {}
-    // {
-    //   id: "7712",
-    //   email: "kashishagarwal81@gmail.com",
-    //   firstName: "Kashish Agarwal",
-    //   lastName: "Agarwal",
-    // };
+    const user = {
+      id: "9443",
+      email: "saurabh.pandey@herovired.com",
+      firstName: "Saurabh Pandey",
+      lastName: "Pandey",
+    };
     const payload = {
       sub: user?.id,
       email: user?.email,
