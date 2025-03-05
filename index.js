@@ -65,7 +65,7 @@ app.get("/generate-jwt", async (req, res) => {
         privateKey,
       }),
     });
-    await axios.get(url, { withCredentials: true });
+    // await axios.get(url, { withCredentials: true });
     res.status(200).json({ url });
     // res.redirect(url);
   } catch (error) {
