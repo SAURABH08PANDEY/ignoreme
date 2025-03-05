@@ -66,8 +66,8 @@ app.get("/generate-jwt", async (req, res) => {
       }),
     });
     // await axios.get(url, { withCredentials: true });
-    res.status(200).json({ url });
-    // res.redirect(url);
+    // res.status(200).json({ url });
+    res.redirect(url);
   } catch (error) {
     console.error("JWT Generation Error:", error.message);
     res.status(500).json({ error: error.message });
