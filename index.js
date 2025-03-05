@@ -10,6 +10,7 @@ const path = require("path");
 const port = process.env.PORT || 6060;
 const connectDB = require("./connectDB");
 const Data = require("./Data");
+const { default: axios } = require("axios");
 
 const privateKey = fs.readFileSync(path.join(__dirname, "private.key"), "utf8");
 
@@ -64,8 +65,9 @@ app.get("/generate-jwt", async (req, res) => {
         privateKey,
       }),
     });
-    // res.status(200).json({ url });
-    res.redirect(url);
+    await axios.get(url, { withCredentials: true });
+    res.status(200).json({ url });
+    // res.redirect(url);
   } catch (error) {
     console.error("JWT Generation Error:", error.message);
     res.status(500).json({ error: error.message });
