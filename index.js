@@ -56,7 +56,7 @@ app.get("/generate-jwt", async (req, res) => {
       // family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
-    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
+    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}&redirect_to=https://herovired.freshdesk.com/support/tickets/49241`;
     await Data.create({
       data: JSON.stringify({
         url,
