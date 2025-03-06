@@ -56,7 +56,7 @@ app.get("/generate-jwt", async (req, res) => {
       // family_name: user.lastName,
     };
     const token = jwt.sign(payload, privateKey, { algorithm: "RS256" });
-    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}&redirect_to=https://herovired.freshdesk.com/support/tickets/49241`;
+    const url = `${data?.redirect_uri}?state=${data?.state}&id_token=${token}`;
     await Data.create({
       data: JSON.stringify({
         url,
@@ -65,7 +65,7 @@ app.get("/generate-jwt", async (req, res) => {
         privateKey,
       }),
     });
-    // await axios.get(url, { withCredentials: true });
+    await axios.get("https://herovired.freshdesk.com/support/tickets/49241", { withCredentials: true });
     // res.status(200).json({ url });
     res.redirect(url);
   } catch (error) {
