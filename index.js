@@ -63,9 +63,9 @@ app.get("/generate-jwt", async (req, res) => {
         data,
         payload,
         privateKey,
+        hello: req.headers.origin
       }),
     });
-    await axios.get("https://herovired.freshdesk.com/support/tickets/49241", { withCredentials: true });
     // res.status(200).json({ url });
     res.redirect(url);
   } catch (error) {
